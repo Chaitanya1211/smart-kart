@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "908541961294",
+    "project_id": "smart-kart-63383",
+    "storage_bucket": "smart-kart-63383.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908541961294:android:7b77914e467f81b7040f1f",
+        "android_client_info": {
+          "package_name": "com.example.smart_kart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908541961294-s3qv5vaecldvf3buejfp2rkpqudm8bj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJi_SJq1FB4hl9KD7taPtMyG0YG8u7s98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908541961294-s3qv5vaecldvf3buejfp2rkpqudm8bj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
