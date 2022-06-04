@@ -12,7 +12,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      appBar: AppBar(title: Text("Hello User")),
+      body: Container(
+        child: Center(child: Text("All the shoppings will be shown here")),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         elevation: 3,
         label: Text("Start New"),

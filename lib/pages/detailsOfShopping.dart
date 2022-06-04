@@ -71,7 +71,7 @@ class _DetailsState extends State<Details> {
                           context,
                           MaterialPageRoute(
                               builder: ((context) => DisplayItems(
-                                    collectionId: collectionId,
+                                    documentId: collectionId,
                                     title: _title.text,
                                   ))));
                     },

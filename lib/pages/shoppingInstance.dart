@@ -5,11 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_kart/pages/orderSummary.dart';
 
 class DisplayItems extends StatefulWidget {
   String title;
-  String collectionId;
-  DisplayItems({Key? key, required this.collectionId, required this.title})
+  String documentId;
+  DisplayItems({Key? key, required this.documentId, required this.title})
       : super(key: key);
 
   @override
@@ -50,7 +51,9 @@ class _DisplayItemsState extends State<DisplayItems> {
     CollectionReference currentInstance = FirebaseFirestore.instance
         .collection('user')
         .doc(FirebaseAuth.instance.currentUser?.uid.toString())
-        .collection(widget.collectionId)
+        .collection('shoppings')
+        .doc(widget.documentId)
+        .collection('items')
         .doc()
         .set({
       "itemId": _itemId.toString(),
@@ -61,12 +64,19 @@ class _DisplayItemsState extends State<DisplayItems> {
 
   Widget build(BuildContext context) {
     // String shoppingTitle = widget.title;
-
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser?.uid.toString())
+        .collection('shoppings')
+        .doc(widget.documentId)
+        .set({'title': widget.title, 'date': formatter.toString()});
     final Stream<QuerySnapshot<Map<String, dynamic>>> itemsStream =
         FirebaseFirestore.instance
             .collection('user')
             .doc(FirebaseAuth.instance.currentUser?.uid.toString())
-            .collection(widget.collectionId)
+            .collection('shoppings')
+            .doc(widget.documentId)
+            .collection('items')
             .snapshots();
 
     return StreamBuilder<QuerySnapshot>(
@@ -153,11 +163,21 @@ class _DisplayItemsState extends State<DisplayItems> {
                             elevation: 50,
                             // backgroundColor : Colors.blue,
                             primary: Color.fromARGB(255, 3, 112, 255)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderSummary(
+                                      documentId: widget.documentId,
+                                      total: total.toString())));
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Icon(Icons.shopping_cart_checkout),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Text("Checkout")
                           ],
                         ),
