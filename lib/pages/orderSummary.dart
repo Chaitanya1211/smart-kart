@@ -69,7 +69,7 @@ class _OrderSummaryState extends State<OrderSummary> {
         .doc(FirebaseAuth.instance.currentUser?.uid.toString())
         .collection('shoppings')
         .doc(widget.documentId)
-        .set(
+        .update(
             {'paymentId': payId.toString(), 'amount': widget.total.toString()});
 
     Navigator.push(context,
@@ -125,17 +125,34 @@ class _OrderSummaryState extends State<OrderSummary> {
           }).toList();
 
           return Scaffold(
+            appBar: AppBar(title: Text("Order Summary")),
             body: Container(
                 child: Padding(
               padding: EdgeInsets.all(8),
               child: ListView(
                 children: [
+                  // Container(
+                  //   margin: EdgeInsets.all(10),
+                  //   child: Text(
+                  //     "Order Summary",
+                  //     style:
+                  //         TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  //   ),
+                  // ),
                   Container(
                     margin: EdgeInsets.all(10),
                     child: Text(
-                      "Order Summary",
+                      "Verify the items purchased and proceed for payment",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: Text(
+                      "Item's List",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
                     ),
                   ),
                   for (var i = 0; i < storedocs.length; i++) ...[
@@ -149,7 +166,14 @@ class _OrderSummaryState extends State<OrderSummary> {
                               Text(" ₹ ${storedocs[i]['itemCost']} /-")
                             ]),
                       ),
-                    )
+                    ),
+                    Divider(
+                      color: Colors.black,
+                      height: 5,
+                      thickness: 2,
+                      indent: 5,
+                      endIndent: 5,
+                    ),
                   ],
                   SizedBox(
                     height: 20,

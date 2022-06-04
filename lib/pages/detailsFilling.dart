@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_kart/pages/shoppingInstance.dart';
@@ -65,13 +67,23 @@ class _DetailsState extends State<Details> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      String collectionId =
+                      String docId =
                           DateTime.now().microsecondsSinceEpoch.toString();
+                      FirebaseFirestore.instance
+                          .collection('user')
+                          .doc(
+                              FirebaseAuth.instance.currentUser?.uid.toString())
+                          .collection('shoppings')
+                          .doc(docId)
+                          .set({
+                        'title': _title.text,
+                        'date': formatter.toString()
+                      });
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: ((context) => DisplayItems(
-                                    documentId: collectionId,
+                                    documentId: docId,
                                     title: _title.text,
                                   ))));
                     },

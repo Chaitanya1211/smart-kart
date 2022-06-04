@@ -64,12 +64,12 @@ class _DisplayItemsState extends State<DisplayItems> {
 
   Widget build(BuildContext context) {
     // String shoppingTitle = widget.title;
-    FirebaseFirestore.instance
-        .collection('user')
-        .doc(FirebaseAuth.instance.currentUser?.uid.toString())
-        .collection('shoppings')
-        .doc(widget.documentId)
-        .set({'title': widget.title, 'date': formatter.toString()});
+    // FirebaseFirestore.instance
+    //     .collection('user')
+    //     .doc(FirebaseAuth.instance.currentUser?.uid.toString())
+    //     .collection('shoppings')
+    //     .doc(widget.documentId)
+    //     .set({'title': widget.title, 'date': formatter.toString()});
     final Stream<QuerySnapshot<Map<String, dynamic>>> itemsStream =
         FirebaseFirestore.instance
             .collection('user')
