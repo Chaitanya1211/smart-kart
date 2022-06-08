@@ -12,6 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CollectionReference currentUser = FirebaseFirestore.instance
+          .collection('user')
+          .doc(FirebaseAuth.instance.currentUser?.uid.toString())
+      as CollectionReference<Object?>;
   final Stream<QuerySnapshot<Map<String, dynamic>>> shoppingStream =
       FirebaseFirestore.instance
           .collection('user')
@@ -128,15 +132,40 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButton.extended(
-              elevation: 3,
-              label: Text("Start New"),
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Details()));
-              },
-            ),
+            // floatingActionButton: FloatingActionButton.extended(
+            //   elevation: 3,
+            //   label: Text("Start New"),
+            //   icon: Icon(Icons.add),
+            //   onPressed: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => Details()));
+            //   },
+            // ),
+            bottomNavigationBar: BottomAppBar(
+                elevation: 20,
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  height: 75,
+                  color: Colors.blue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shadowColor: Colors.black,
+                              elevation: 50,
+                              // backgroundColor : Colors.blue,
+                              primary: Color.fromARGB(255, 3, 112, 255)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Details()));
+                          },
+                          child: Text("Start New Shopping"))
+                    ],
+                  ),
+                )),
           );
         });
     // return Scaffold(

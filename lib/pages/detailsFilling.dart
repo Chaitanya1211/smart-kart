@@ -47,17 +47,6 @@ class _DetailsState extends State<Details> {
                 SizedBox(
                   height: 5,
                 ),
-                Container(
-                  margin: EdgeInsets.all(5),
-                  child: TextFormField(
-                    controller: _budget,
-                    autofocus: false,
-                    decoration: InputDecoration(
-                        hintText: "Set Limit In Ruppees",
-                        prefixIcon: Icon(Icons.money),
-                        border: OutlineInputBorder()),
-                  ),
-                ),
                 SizedBox(
                   height: 5,
                 ),

@@ -23,11 +23,25 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Center(
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Container(
+                  //   height: 250,
+                  //   decoration: BoxDecoration(
+                  //       image: DecorationImage(
+                  //           image: AssetImage('assets/logo.jpg'),
+                  //           fit: BoxFit.fill)),
+                  // ),
+                  Text(
+                    "Login",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     margin: EdgeInsets.all(5),
                     child: TextFormField(
