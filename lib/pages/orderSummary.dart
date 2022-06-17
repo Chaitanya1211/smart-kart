@@ -35,6 +35,36 @@ class _OrderSummaryState extends State<OrderSummary> {
     _razorpay.clear();
   }
 
+  CollectionReference shoppingInstance =
+      FirebaseFirestore.instance.collection('user');
+  Future<void> deleteInstance(id) async {
+    shoppingInstance
+        .doc(FirebaseAuth.instance.currentUser?.uid.toString())
+        .collection('shoppings')
+        .doc(id)
+        .delete()
+        .then((value) => {
+              Fluttertoast.showToast(
+                  msg: "Shopping Discarded",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0)
+            })
+        .onError((error, stackTrace) => {
+              Fluttertoast.showToast(
+                  msg: "Shopping Not Discarded",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Color.fromARGB(255, 131, 121, 121),
+                  fontSize: 16.0)
+            });
+  }
+
   void openCheckout() {
     var options = {
       'key': 'rzp_test_P8aWBN2Kj6tDS4',
@@ -56,14 +86,6 @@ class _OrderSummaryState extends State<OrderSummary> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     String payId = response.paymentId!;
-    // Fluttertoast.showToast(
-    //     msg: "Payment Success" + response.paymentId!,
-    //     toastLength: Toast.LENGTH_SHORT,
-    //     gravity: ToastGravity.BOTTOM,
-    //     timeInSecForIosWeb: 1,
-    //     backgroundColor: Colors.green,
-    //     textColor: Colors.black,
-    //     fontSize: 16.0);
     FirebaseFirestore.instance
         .collection('user')
         .doc(FirebaseAuth.instance.currentUser?.uid.toString())
@@ -124,118 +146,117 @@ class _OrderSummaryState extends State<OrderSummary> {
             // a['id'] = document.id;
           }).toList();
 
-          return Scaffold(
-            appBar: AppBar(title: Text("Order Summary")),
-            body: Container(
-                child: Padding(
-              padding: EdgeInsets.all(8),
-              child: ListView(
-                children: [
-                  // Container(
-                  //   margin: EdgeInsets.all(10),
-                  //   child: Text(
-                  //     "Order Summary",
-                  //     style:
-                  //         TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                  //   ),
-                  // ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: Text(
-                      "Verify the items purchased and proceed for payment",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: Text(
-                      "Item's List",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
-                    ),
-                  ),
-                  for (var i = 0; i < storedocs.length; i++) ...[
+          return WillPopScope(
+            onWillPop: () async {
+              deleteInstance(widget.documentId);
+              return true;
+            },
+            child: Scaffold(
+              appBar: AppBar(title: Text("Order Summary")),
+              body: Container(
+                  child: Padding(
+                padding: EdgeInsets.all(8),
+                child: ListView(
+                  children: [
                     Container(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(storedocs[i]['itemName']),
-                              Text(" ₹ ${storedocs[i]['itemCost']} /-")
-                            ]),
+                      margin: EdgeInsets.all(10),
+                      child: Text(
+                        "Verify the items purchased and proceed for payment",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 20),
                       ),
                     ),
-                    Divider(
-                      color: Colors.black,
-                      height: 5,
-                      thickness: 2,
-                      indent: 5,
-                      endIndent: 5,
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: Text(
+                        "Item's List",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 25),
+                      ),
                     ),
+                    for (var i = 0; i < storedocs.length; i++) ...[
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(storedocs[i]['itemName']),
+                                Text(" ₹ ${storedocs[i]['itemCost']} /-")
+                              ]),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
+                        height: 5,
+                        thickness: 2,
+                        indent: 5,
+                        endIndent: 5,
+                      ),
+                    ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      child: Row(children: [
+                        SizedBox(
+                          width: 233,
+                        ),
+                        Container(
+                          child: Text(
+                            "Total : ₹ ${widget.total} /-",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        )
+                      ]),
+                    )
                   ],
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    child: Row(children: [
-                      SizedBox(
-                        width: 233,
-                      ),
-                      Container(
-                        child: Text(
-                          "Total : ₹ ${widget.total} /-",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+              )),
+              bottomNavigationBar: BottomAppBar(
+                elevation: 50,
+                color: Colors.blue,
+                child: Container(
+                  height: 80,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 21, 20, 15),
+                          child: Column(
+                            children: [
+                              Text('Total Items : ${storedocs.length}'),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text("Total Cost  : ${widget.total}/-")
+                            ],
+                          ),
                         ),
-                      )
-                    ]),
-                  )
-                ],
-              ),
-            )),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 50,
-              color: Colors.blue,
-              child: Container(
-                height: 80,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 21, 20, 15),
-                        child: Column(
-                          children: [
-                            Text('Total Items : ${storedocs.length}'),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("Total Cost  : ${widget.total}/-")
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.black,
-                            elevation: 50,
-                            // backgroundColor : Colors.blue,
-                            primary: Color.fromARGB(255, 3, 112, 255)),
-                        onPressed: () {
-                          openCheckout();
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(Icons.payment),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text("Continue to Pay")
-                          ],
-                        ),
-                      )
-                    ]),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shadowColor: Colors.black,
+                              elevation: 50,
+                              // backgroundColor : Colors.blue,
+                              primary: Color.fromARGB(255, 3, 112, 255)),
+                          onPressed: () {
+                            openCheckout();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.payment),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text("Continue to Pay")
+                            ],
+                          ),
+                        )
+                      ]),
+                ),
               ),
             ),
           );

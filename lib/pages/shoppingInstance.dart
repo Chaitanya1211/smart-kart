@@ -55,6 +55,7 @@ class _DisplayItemsState extends State<DisplayItems> {
   var _itemName;
   int total = 0;
   var _itemCost;
+  // var _itemDesc;
 
   @override
   Future<void> scanQR() async {
@@ -76,6 +77,7 @@ class _DisplayItemsState extends State<DisplayItems> {
       _itemId = details['id'];
       _itemName = details['name'];
       _itemCost = details['cost'];
+      // _itemDesc = details['desc'];
     });
 
     total += int.parse(_itemCost);
@@ -89,7 +91,8 @@ class _DisplayItemsState extends State<DisplayItems> {
         .set({
       "itemId": _itemId.toString(),
       "itemName": _itemName.toString(),
-      "itemCost": _itemCost.toString()
+      "itemCost": _itemCost.toString(),
+      // "itemDesc": _itemDesc.toString()
     }) as CollectionReference<Object?>;
   }
 
@@ -156,7 +159,7 @@ class _DisplayItemsState extends State<DisplayItems> {
                       // Text(widget.title.toString()),
                       for (var i = 0; i < storedocs.length; i++) ...[
                         Card(
-                            elevation: 10,
+                            elevation: 5,
                             child: Padding(
                               padding: EdgeInsets.all(10),
                               child: Row(
@@ -174,6 +177,10 @@ class _DisplayItemsState extends State<DisplayItems> {
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16),
                                       ),
+                                      // SizedBox(
+                                      //   height: 5,
+                                      // ),
+                                      // Text(storedocs[i]['itemDesc']),
                                       SizedBox(
                                         height: 5,
                                       ),

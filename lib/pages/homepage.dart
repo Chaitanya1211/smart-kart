@@ -12,10 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  CollectionReference currentUser = FirebaseFirestore.instance
-          .collection('user')
-          .doc(FirebaseAuth.instance.currentUser?.uid.toString())
-      as CollectionReference<Object?>;
   final Stream<QuerySnapshot<Map<String, dynamic>>> shoppingStream =
       FirebaseFirestore.instance
           .collection('user')
