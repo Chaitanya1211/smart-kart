@@ -20,8 +20,10 @@ Here the user will be able to see all the previous shopping he/she had done. It 
 
 ## User starts new shopping 
 - **User New Shopping Page**
-
-![User New Shopping](./projectImages//UserHomeNewShopping.jpg?raw=true "Title")
+- 
+<p align="center">
+  <img src="./projectImages/UserHome.jpg?raw=true" alt="User Homepage" title="User Homepage">
+</p>
 
 After clicking on Start new shopping button on the User Homepage the user will be prompted to add a title to the nre shopping and this screeen will appear.
 
