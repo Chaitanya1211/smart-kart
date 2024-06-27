@@ -14,33 +14,50 @@ The project's main database is Firebase Firestore, a NoSQL database that uses co
 
 ## Project screenshots
 ## User Homepage
-![User Homepage](./projectImages//UserHome.jpg?raw=true "Title")
-
+<p align="center">
+    <img src="./projectImages/UserHome.jpg?raw=true" alt="User Homepage" title="User Homepage">
+</p>
+<p>
 Here the user will be able to see all the previous shopping he/she had done. It will contain the deyails of items brought, the cart total and Payment ID.
+</p>
 
 ## User starts new shopping 
 - **User New Shopping Page**
-- 
 <p align="center">
-  <img src="./projectImages/UserHome.jpg?raw=true" alt="User Homepage" title="User Homepage">
+  <img src="./projectImages/UserHomeNewShopping.jpg?raw=true" alt="User Homepage" title="User Homepage">
 </p>
 
+<p>
 After clicking on Start new shopping button on the User Homepage the user will be prompted to add a title to the nre shopping and this screeen will appear.
+</p>
 
-- **Items added after scanning**
-![User New Shopping](./projectImages//UserShoppingSession.jpg?raw=true "Title")
-
+- **Shopping Session**
+<p align="center">
+  <img src="./projectImages/UserShoppingSession.jpg?raw=true" alt="User Homepage" title="User Homepage">
+</p>
+<p>
 As the user clicks on add item he/she will be prompted to scan the QR Code on the item and after successfull scan the item will be visible in the list. The cart subtotal gets calculated dynamically.
+</p>
 
 - **Items summary screen**
-![User New Shopping](./projectImages//UserShoppingSummary.jpg?raw=true "Title")
-
+<p align="center">
+  <img src="./projectImages/UserShoppingSummary.jpg?raw=true" alt="User Homepage" title="User Homepage">
+</p>
+<p>
 This screen shows the cart summary and give an option to pay via Razorpay
+</p>
 
--- **Payment Success**
-
-![User New Shopping](./projectImages//UserPaymentSuccess.jpg?raw=true "Title")
+- **Payment Success**
+<p align="center">
+  <img src="./projectImages/UserPaymentSuccess.jpg?raw=true" alt="User Homepage" title="User Homepage">
+</p>
+<p>
 After the payment is successfull the user will be shown the Payment ID and will be redircted to the Homepage
+</p>
+
+## Conclusion
+<p>This project is devised to reduce the time required for shopping. This will reduce the manpower required at stores and will make the system more efficient.
+</p>
 
 
 
